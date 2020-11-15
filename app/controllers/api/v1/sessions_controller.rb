@@ -7,11 +7,7 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   private
 
-  def find_model
-    @model = User.find(params[:id]) if params[:id]
-  end
-
   def user_params
-
+    params.require(:user).permit(:email, :password)
   end
 end
