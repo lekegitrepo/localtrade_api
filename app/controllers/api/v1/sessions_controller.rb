@@ -1,6 +1,4 @@
-class SessionsController < ApplicationController
-  before_filter :find_model
-
+class Api::V1::SessionsController < Devise::SessionsController
   def create
   end
 
