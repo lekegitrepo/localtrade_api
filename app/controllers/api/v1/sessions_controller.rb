@@ -1,6 +1,11 @@
 class Api::V1::SessionsController < Devise::SessionsController
   def create
-    user = User.find_by(user_params[:email])
+    if @user.valid_password?(user_params[:password])
+      sign_in 'user', @user
+      render_json 'Successfully Signed in', true, @user, :ok
+    else
+      json_response 'Unable to Signed in: wrong email or password', false, {}, :unauthorized
+    end
   end
 
   def login
