@@ -1,6 +1,8 @@
 class Api::V1::SessionsController < Devise::SessionsController
   before_action :user_params, only: :create
   before_action :load_user, only: :create
+  before_action :valid_token, only: [:logout, :login]
+  skip_before_action :verify_signed_out_user, only: :logout
 
   def create
     if @user.valid_password?(user_params[:password])
