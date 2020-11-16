@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :authentication_token, uniqueness: true
+
   def generate_new_auth_token
     token = User.generate_unique_secure_token
 
