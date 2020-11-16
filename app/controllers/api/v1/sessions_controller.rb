@@ -11,11 +11,20 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
   end
 
+  # Check if user is logged in
   def login
+    if @user
+      render_json 'Signed in Successfully', true, @user, :ok
+    else
+      render_json 'Unable to Signed in: wrong email or password', false, {}, :unauthorized
+    end
   end
 
   def logout
+    sign_out @user
+    @user.generate_new_auth_token
     reset_session
+    render_json 'Successfully logged out', true, {}, :ok
   end
 
   private
