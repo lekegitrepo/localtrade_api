@@ -29,6 +29,8 @@ gem 'devise'
 
 gem 'factory_bot_rails'
 
+gem 'ffaker'
+
 gem 'rack-cors'
 
 gem 'rubocop', '~>0.81.0'
