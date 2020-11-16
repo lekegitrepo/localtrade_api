@@ -37,6 +37,8 @@ gem 'rubocop', '~>0.81.0'
 
 gem 'simple_token_authentication'
 
+gem 'shoulda-matchers'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

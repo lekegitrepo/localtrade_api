@@ -208,6 +208,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    shoulda-matchers (4.4.1)
+      activesupport (>= 4.2.0)
     simple_token_authentication (1.17.0)
       actionmailer (>= 3.2.6, < 7)
       actionpack (>= 3.2.6, < 7)
@@ -276,6 +278,7 @@ DEPENDENCIES
   rubocop (~> 0.81.0)
   sass-rails (>= 6)
   selenium-webdriver
+  shoulda-matchers
   simple_token_authentication
   spring
   spring-watcher-listen (~> 2.0.0)
