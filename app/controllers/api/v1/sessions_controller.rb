@@ -40,4 +40,12 @@ class Api::V1::SessionsController < Devise::SessionsController
   def user_params
     params.require(:user).permit(:email, :password)
   end
+
+  def valid_token
+    @user = User.find_by authentication_token: request.headers['AUTH-TOKEN']
+
+    return @user if @user
+
+    render_json 'Invalid authentication', false, {}, :unprocessable_entity
+  end
 end
