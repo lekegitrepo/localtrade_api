@@ -27,6 +27,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
 
+gem 'factory_bot_rails'
+
 gem 'rack-cors'
 
 gem 'rubocop', '~>0.81.0'
