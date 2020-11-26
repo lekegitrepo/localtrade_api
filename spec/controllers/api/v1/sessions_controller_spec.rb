@@ -20,5 +20,19 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
       it { should respond_with 200 }
     end
+
+    context 'When user credentials are incorrect' do
+      before(:each) do
+        credentials = { email: @user.email, password: 'wrong_password' }
+        post :create, params: { session: credentials }
+      end
+
+      it 'response with unauthorized' do
+        p "user object: #{json_response}"
+        expect(json_response[:is_success]).to eql false
+      end
+
+      it { should respond_with 422 }
+    end
   end
 end
