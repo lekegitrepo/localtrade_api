@@ -12,7 +12,7 @@ class Api::V1::SessionsController < ApplicationController
       user.save
       render_json 'Signed in', true, user, :ok, [:api_v1, user]
     else
-      render_json 'Unable to Signed in: wrong email or password', false, {}, :unauthorized
+      render_json 'Unable to Signed in: wrong email or password', false, {}, :unprocessable_entity
     end
   end
 
