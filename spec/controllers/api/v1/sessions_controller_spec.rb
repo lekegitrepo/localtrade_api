@@ -28,11 +28,20 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       end
 
       it 'response with unauthorized' do
-        p "user object: #{json_response}"
         expect(json_response[:is_success]).to eql false
       end
 
       it { should respond_with 422 }
     end
+  end
+
+  describe 'When user sign out or delete session' do
+    before(:each) do
+      @user = FactoryBot.create :user
+      sign_in @user
+      delete :destroy, params: { id: @user.authentication_token }
+    end
+
+    it { should respond_with 204 }
   end
 end
