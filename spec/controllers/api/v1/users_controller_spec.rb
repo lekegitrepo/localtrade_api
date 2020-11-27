@@ -14,4 +14,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     it { should respond_with 200 }
   end
+
+  describe 'POST #create' do
+    before(:each) do
+      @user_attr = FactoryBot.attribute_for :user
+      post :create, params: { user: @user_attr, format: :json }
+    end
+
+    it 'should return the user record in json format' do
+      user_json = json_response[:user]
+      expect(user_json[:email]).to eql @user_attr[:email]
+    end
+
+    it { should respond_with 201 }
+  end
 end
