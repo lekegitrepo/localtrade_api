@@ -8,7 +8,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it 'should return an information about a user' do
-      expect(json_response[:email]).to eql @user.email
+      user_resp = json_response[:user]
+      expect(user_resp[:email]).to eql @user.email
     end
 
     it { should respond_with 200 }
