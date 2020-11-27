@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
   before_action :load_user, only: :login
-  before_action :valid_token, only: [:logout, :login]
+  before_action :valid_token, only: [:destroy, :login]
 
   def create
     user_password = params[:session][:password]
@@ -25,12 +25,22 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
-  def logout
-    sign_out @user
+  def destroy
     @user.generate_new_auth_token
+    @user.save
+    sign_out @user
     reset_session
-    render_json 'Successfully logged out', true, {}, :ok
+    render_json 'Successfully logged out', true, {}, :no_content
   end
+
+  # def destroy
+  #   user = User.find_by(authentication_token: params[:id])
+  #   user.generate_new_auth_token
+  #   user.save
+  #   sign_out user
+  #   reset_session
+  #   head :no_content
+  # end
 
   private
 
@@ -42,12 +52,8 @@ class Api::V1::SessionsController < ApplicationController
     render_json 'Unable to sign in: something went wrong!', false, {}, :failure
   end
 
-  # def user_params
-  #   params.require(:user).permit(:email, :password)
-  # end
-
   def valid_token
-    @user = User.find_by authentication_token: request.headers['AUTH-TOKEN']
+    @user = User.find_by authentication_token: params[:id]
 
     return @user if @user
 
