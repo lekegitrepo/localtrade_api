@@ -14,4 +14,10 @@ class Api::V1::UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     render_json 'Profile', true, user, :ok # , [:api_v1, user]
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 end
