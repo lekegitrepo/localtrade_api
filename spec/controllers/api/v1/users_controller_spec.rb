@@ -17,7 +17,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'POST #create' do
     before(:each) do
-      @user_attr = FactoryBot.attribute_for :user
+      @user_attr = FactoryBot.attributes_for :user
       post :create, params: { user: @user_attr, format: :json }
     end
 
