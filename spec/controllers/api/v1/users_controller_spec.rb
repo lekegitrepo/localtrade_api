@@ -65,6 +65,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         user_resp = json_response[:user]
         expect(user_resp[:email]).to eql 'newemail@gmail.com'
       end
+
+      it { should respond_with 202 }
     end
   end
 end
