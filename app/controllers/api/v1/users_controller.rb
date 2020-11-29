@@ -10,6 +10,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def update
+    user = User.find(params[:id])
+    if user.update(user_params)
+      render_json 'Successfully update user Profile', true, user, :accepted, [:api_v1, user]
+    else
+      render_json 'Unable to update user Profile', false, { errors: user.errors }, :unprocessable_entity
+    end
+  end
+
   def show
     user = User.find_by(id: params[:id])
     render_json 'Profile', true, user, :ok # , [:api_v1, user]
