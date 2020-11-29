@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       render_json 'User Successfully Registered', true, user, :created, [:api_v1, user]
     else
-      render_json 'Unable to register!', false, {}, :unprocessable_entity
+      render_json 'Unable to register!', false, { errors: user.errors }, :unprocessable_entity
     end
   end
 
