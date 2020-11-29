@@ -27,5 +27,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it { should respond_with 201 }
+
+    context 'Invalid user value' do
+      before(:each) do
+        @invalid_input = { password: '12355332', password_confirmation: '12355332' }
+        post :create, params: { user: @invalid_input, format: :json }
+      end
+
+      it 'should render a json with error' do
+        expect(json_response[:is_success]).to eql false
+      end
+    end
   end
 end
