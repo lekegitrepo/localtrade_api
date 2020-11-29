@@ -51,4 +51,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it { should respond_with 422 }
     end
   end
+
+  describe 'PUT/PATCH #update' do
+    context "Where user's record is successfully updated" do
+      before(:each) do
+        @user = FactoryBot.create :user
+        patch :update, params: { id: @user.id,
+                                 user: { email: 'newemail@gmail.com' },
+                                 format: :json }
+      end
+
+      it 'should contain json with user new email' do
+        user_resp = json_response[:user]
+        expect(user_resp[:email]).to eql 'newemail@gmail.com'
+      end
+    end
+  end
 end
