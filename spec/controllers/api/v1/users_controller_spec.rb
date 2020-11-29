@@ -56,6 +56,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "Where user's record is successfully updated" do
       before(:each) do
         @user = FactoryBot.create :user
+        # request.headers['Authorization'] = @user.authentication_token
         patch :update, params: { id: @user.id,
                                  user: { email: 'newemail@gmail.com' },
                                  format: :json }
@@ -67,6 +68,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it { should respond_with 202 }
+    end
+
+    context 'Where user input data for the update process is invalid' do
+      before(:each) do
+        @user = FactoryBot.create :user
+        patch :update, params: { id: @user.id,
+                                 user: { email: 'updatewithbademail.com' },
+                                 format: :json }
+      end
+
+      it 'should contain json with an errors key' do
+        user_resp = json_response[:user]
+        expect(user_resp).to have_key(:errors)
+      end
+
+      it 'should contain json with errors message' do
+        user_resp = json_response[:user]
+        expect(user_resp[:errors][:email]).to include 'is invalid'
+      end
     end
   end
 end
