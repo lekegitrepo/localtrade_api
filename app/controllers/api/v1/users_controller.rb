@@ -24,6 +24,13 @@ class Api::V1::UsersController < ApplicationController
     render_json 'Profile', true, user, :ok # , [:api_v1, user]
   end
 
+  def destroy
+    user = User.find_by(authentication_token: params[:id])
+    user.destroy
+    # current_user.destroy
+    head 204
+  end
+
   private
 
   def user_params
