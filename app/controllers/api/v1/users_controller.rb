@@ -12,7 +12,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    # user = User.find(params[:id])
+    user = current_user
     if user.update(user_params)
       render_json 'Successfully update user Profile', true, user, :accepted, [:api_v1, user]
     else
@@ -26,9 +27,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find_by(authentication_token: params[:id])
-    user.destroy
-    # current_user.destroy
+    # user = User.find_by(authentication_token: params[:id])
+    # user.destroy
+    current_user.destroy
     head 204
   end
 
