@@ -56,7 +56,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "Where user's record is successfully updated" do
       before(:each) do
         @user = FactoryBot.create :user
-        # request.headers['Authorization'] = @user.authentication_token
+        request.headers['Authorization'] = @user.authentication_token
         patch :update, params: { id: @user.id,
                                  user: { email: 'newemail@gmail.com' },
                                  format: :json }
@@ -85,7 +85,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'should contain json with errors message' do
         user_resp = json_response[:user]
-        expect(user_resp[:errors][:email]).to include 'is invalid'
+        p "user resp: #{user_resp}"
+        expect(user_resp[:errors]).to include 'Unauthorized'
       end
     end
   end
@@ -93,7 +94,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'DELETE #destroy' do
     before(:each) do
       @user = FactoryBot.create :user
-      # api_authorization_header @user.authentication_token
+      api_authorization_header @user.authentication_token
       delete :destroy, params: { id: @user.authentication_token,
                                  format: :json }
     end
