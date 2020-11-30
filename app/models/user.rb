@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  acts_as_token_authenticatable
+  before_create :generate_new_auth_token
+  # acts_as_token_authenticatable
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -9,9 +10,15 @@ class User < ApplicationRecord
   validates :authentication_token, uniqueness: true
 
   def generate_new_auth_token
-    token = User.generate_unique_secure_token
-
-    # update_attributes authentication_token: token
-    update authentication_token: token
+    begin
+      self.authentication_token = Devise.friendly_token
+    end while self.class.exists?(authentication_token: authentication_token)
   end
+
+  # def generate_new_auth_token
+  #   token = User.generate_unique_secure_token
+
+  #   # update_attributes authentication_token: token
+  #   update authentication_token: token
+  # end
 end
