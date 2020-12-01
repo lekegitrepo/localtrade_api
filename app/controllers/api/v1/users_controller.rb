@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate_with_token, only: [:update, :destroy]
+  before_action :authenticate_with_token, only: [:update, :show, :destroy]
   # respond_to :json
 
   def create
@@ -23,7 +23,12 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    render_json 'Profile', true, user, :ok # , [:api_v1, user]
+    if (user_signed_in? && session[:user_id]) && user == current_user
+      p "ThIS IS USER SESSION: #{session[:user_id]}"
+      render_json 'Profile', true, user, :ok # , [:api_v1, user]
+    else
+      render_json 'Unable to load user profile', false, {}, :unauthorized # , [:api_v1, user]
+    end
   end
 
   def destroy
