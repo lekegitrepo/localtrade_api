@@ -23,8 +23,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    if (user_signed_in? && session[:user_id]) && user == current_user
-      p "ThIS IS USER SESSION: #{session[:user_id]}"
+    if user
       render_json 'Profile', true, user, :ok # , [:api_v1, user]
     else
       render_json 'Unable to load user profile', false, {}, :unauthorized # , [:api_v1, user]
