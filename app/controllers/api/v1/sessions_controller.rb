@@ -1,6 +1,7 @@
 class Api::V1::SessionsController < ApplicationController
   before_action :load_user, only: :login
   # before_action :valid_token, only: [:destroy, :login]
+  before_action :authenticate_with_token, only: :destroy
 
   def create
     user_password = params[:session][:password]
