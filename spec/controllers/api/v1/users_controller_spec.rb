@@ -4,6 +4,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #show' do
     before(:each) do
       @user = FactoryBot.create :user
+      request.headers['Authorization'] = @user.authentication_token
       get :show, params: { id: @user.id, format: :json }
     end
 
@@ -85,7 +86,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'should contain json with errors message' do
         user_resp = json_response[:user]
-        p "user resp: #{user_resp}"
         expect(user_resp[:errors]).to include 'Unauthorized'
       end
     end
