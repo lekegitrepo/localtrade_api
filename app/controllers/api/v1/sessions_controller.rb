@@ -27,21 +27,8 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   # @user.generate_new_auth_token
-  #   # @user.save
-  #   # @user = User.find_by authentication_token: params[:id]
-  #   # @user.generate_new_auth_token
-  #   # @user.save
-  #   # sign_out @user
-  #   # reset_session
-  #   # render_json 'Successfully logged out', true, {}, :no_content
-  # end
-
   def destroy
     user = User.find_by(authentication_token: params[:id])
-    # user.generate_new_auth_token
-    # user.save
     session[:user_id] = ''
     sign_out user
     reset_session
