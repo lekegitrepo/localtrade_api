@@ -17,15 +17,15 @@ module LocaltradeApi
     # the framework and any gems in your application.
 
     # This also configures session_options for use below
-    config.session_store :cookie_store, key: '_localtrade', same_site: :none, secure: true
+    # config.session_store :cookie_store, key: '_localtrade', same_site: :none, secure: true
 
     # Required for all session management (regardless of session_store)
-    config.middleware.use ActionDispatch::Cookies
-
-    config.middleware.use config.session_store, config.session_options
-
     # config.middleware.use ActionDispatch::Cookies
-    # config.middleware.use ActionDispatch::Session::CookieStore, key: '_hoodmat', secure: true
-    # config.middleware.insert_after(ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, key: '_hoodmat')
+
+    # config.middleware.use config.session_store, config.session_options
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_hoodmat', same_site: :none, secure: true
+    config.middleware.insert_after(ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, key: '_hoodmat')
   end
 end
