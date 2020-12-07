@@ -17,7 +17,7 @@ module LocaltradeApi
     # the framework and any gems in your application.
 
     # This also configures session_options for use below
-    config.session_store :cookie_store, secure: true #, key: '_localtrade', same_site: :none, secure: true
+    config.session_store :cookie_store, secure: true, same_site: :none #, key: '_localtrade', same_site: :none, secure: true
 
     # Required for all session management (regardless of session_store)
     # config.middleware.use ActionDispatch::Cookies
