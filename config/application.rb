@@ -24,8 +24,8 @@ module LocaltradeApi
 
     # config.middleware.use config.session_store, config.session_options
 
-    config.middleware.use ActionDispatch::Cookies
-    # config.middleware.use ActionDispatch::Session::CookieStore, key: '_localtrade', same_site: :none #, secure: true
+    # config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore #, key: '_localtrade', same_site: :none #, secure: true
     config.middleware.insert_after(ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, key: '_local_trade')
   end
 end
