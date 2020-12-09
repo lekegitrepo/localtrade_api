@@ -20,7 +20,7 @@ module LocaltradeApi
     config.session_store :cookie_store, secure: true #, key: '_localtrade', same_site: :none, secure: true
 
     # Required for all session management (regardless of session_store)
-    config.middleware.use ActionDispatch::Cookies, same_site: :none, secure: true
+    config.middleware.use ActionDispatch::Cookies same_site: :none
 
     config.middleware.use config.session_store, config.session_options
 
