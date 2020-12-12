@@ -12,7 +12,7 @@ class Api::V1::SessionsController < ApplicationController
       user.generate_new_auth_token
       user.save
       session[:user_id] = user.id
-      cookies['foo'] = {
+      session['_foo'] = {
         value: 'bar',
         secure: true,
         same_site: 'None'
