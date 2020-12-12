@@ -14,7 +14,7 @@ class Api::V1::SessionsController < ApplicationController
       session[:user_id] = user.id
       cookies['foo'] = {
         value: 'bar',
-        secure: Rails.application.config.secure_cookies,
+        secure: true,
         same_site: 'None'
       }
       render_json 'Signed in', true, user, :ok, [:api_v1, user]
