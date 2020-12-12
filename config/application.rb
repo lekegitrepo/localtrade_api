@@ -25,8 +25,7 @@ module LocaltradeApi
     # config.middleware.use config.session_store, config.session_options
 
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, {
-      key: '_localtrade',
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_localtrade', {
       domain: 'https://localtradeapi.herokuapp.com/',
       same_site: :none,
       secure: true
