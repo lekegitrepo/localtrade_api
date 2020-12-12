@@ -18,7 +18,7 @@ class Api::V1::SessionsController < ApplicationController
         same_site: 'None'
       }
       response.headers['Set-Cookie'] = 'Secure;SameSite=None;Secure=true'
-      response.headers['Set-Cookie'] = { same_site: 'None', secure: true, value: user.id, name: '_session'}
+      # response.headers['Set-Cookie'] = { same_site: 'None', secure: true, value: user.id, name: '_session' }
       render_json 'Signed in', true, user, :ok, [:api_v1, user]
     else
       render_json 'Unable to Signed in: wrong email or password', false, {}, :unprocessable_entity
