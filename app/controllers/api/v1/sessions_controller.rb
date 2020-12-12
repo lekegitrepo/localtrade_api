@@ -12,6 +12,11 @@ class Api::V1::SessionsController < ApplicationController
       user.generate_new_auth_token
       user.save
       session[:user_id] = user.id
+      cookies['foo'] = {
+        value: 'bar',
+        secure: Rails.application.config.secure_cookies,
+        same_site: 'None'
+      }
       render_json 'Signed in', true, user, :ok, [:api_v1, user]
     else
       render_json 'Unable to Signed in: wrong email or password', false, {}, :unprocessable_entity
