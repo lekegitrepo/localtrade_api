@@ -10,9 +10,10 @@ class User < ApplicationRecord
   validates :authentication_token, uniqueness: true
 
   def generate_new_auth_token
-    begin
+    loop do
       self.authentication_token = Devise.friendly_token
-    end while self.class.exists?(authentication_token: authentication_token)
+      break unless self.class.exists?(authentication_token: authentication_token)
+    end
   end
 
   # def generate_new_auth_token

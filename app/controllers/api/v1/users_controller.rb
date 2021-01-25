@@ -3,10 +3,12 @@ class Api::V1::UsersController < ApplicationController
   # respond_to :json
 
   def create
+    p "THIS IS PARAMS: #{params}"
     user = User.new(user_params)
     if user.save
       render_json 'User Successfully Registered', true, user, :created, [:api_v1, user]
     else
+      p "THIS IS USER ERRORS: #{user.errors[:email]}"
       render_json 'Unable to register!', false, { errors: user.errors }, :unprocessable_entity
     end
   end
