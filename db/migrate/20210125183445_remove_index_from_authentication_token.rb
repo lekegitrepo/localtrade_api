@@ -1,6 +1,6 @@
 class RemoveIndexFromAuthenticationToken < ActiveRecord::Migration[6.0]
   def up
-    remove_index :users, :authentication_token, :string
+    remove_index :users, :authentication_token
   end
 
   def down
