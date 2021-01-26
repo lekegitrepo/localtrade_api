@@ -1,9 +1,10 @@
 class Api::V1::SessionsController < ApplicationController
-  before_action :load_user, only: :login
+  # before_action :load_user, only: :login
   # before_action :valid_token, only: [:destroy, :login]
   before_action :authenticate_with_token, only: :destroy
 
   def create
+    p "ThIS IS THE PARAMS #{params}"
     user_password = params[:session][:password]
     user_email = params[:session][:email]
     user = user_email.present? && User.find_by(email: user_email)

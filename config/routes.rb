@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       delete 'logged_out', to: 'sessions#destroy'
       # post 'sign_up', to: 'users#update'
       # patch 'sign_up', to: 'users#update'
-      post 'sign_up', to: 'users#create'
+      # post 'sign_up', to: 'users#create'
       resources :users, only: [:show, :update, :destroy]
       resources :sessions, only: [:create, :destroy]
     end
